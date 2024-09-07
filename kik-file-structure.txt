@@ -1,0 +1,184 @@
+/project-root
+│
+├── /backend
+│   └── /laravel-example-app
+│       ├── /src
+│       ├── /public
+│       ├── /resources
+│       ├── /routes
+│       ├── /views
+│       └── .env
+│
+├── /frontend
+│   └── /vue-example-app
+│       ├── /src
+│       ├── /public
+│       ├── /components
+│       ├── /services
+│       └── .env
+│
+├── /infrastructure
+│   ├── /apps
+│   │   ├── /backend
+│   │   │   └── /laravel-example-app
+│   │   │       ├── /global
+│   │   │       │   ├── /nginx
+│   │   │       │   ├── /php
+│   │   │       │   ├── /mysql
+│   │   │       │   └── .dockerignore
+│   │   │       ├── /dev
+│   │   │       │   ├── Dockerfile
+│   │   │       │   ├── docker-compose.yml
+│   │   │       │   └── .env
+│   │   │       ├── /staging
+│   │   │       │   ├── Dockerfile
+│   │   │       │   ├── docker-compose.yml
+│   │   │       │   └── .env
+│   │   │       └── /prod
+│   │   │           ├── Dockerfile
+│   │   │           ├── docker-compose.yml
+│   │   │           └── .env
+│   │   └── /frontend
+│   │       └── /vue-example-app
+│   │           ├── /global
+│   │           │   └── .dockerignore
+│   │           ├── /dev
+│   │           │   ├── Dockerfile
+│   │           │   ├── docker-compose.yml
+│   │           │   └── .env
+│   │           ├── /staging
+│   │           │   ├── Dockerfile
+│   │           │   ├── docker-compose.yml
+│   │           │   └── .env
+│   │           └── /prod
+│   │               ├── Dockerfile
+│   │               ├── docker-compose.yml
+│   │               └── .env
+│   │
+│   └── /code
+│       ├── /core              # Core framework code and utilities
+│       │   ├── /commands      # Custom commands for deployment and management
+│       │   ├── /helpers       # Helper scripts or libraries
+│       │   ├── /config        # Configuration files and templates for the framework
+│       │   └── /docs          # Documentation for core framework code
+│       │
+│       ├── /templates         # Reusable configuration templates for different technologies
+│       │   ├── /laravel
+│       │   │   ├── /global                 # Global configurations for Laravellobal configurations for Laravel
+│       │   │   │   ├── /nginx              # Nginx configurationginx configuration
+│       │   │   │   │   ├── default.conf    # Default Nginx configuration fileefault Nginx configuration file
+│       │   │   │   │   └── sites-available # Nginx site configurationsginx site configurations
+│       │   │   │   ├── /php                # PHP configurationHP configuration
+│       │   │   │   │   ├── php.ini         # PHP configuration settingsHP configuration settings
+│       │   │   │   │   └── conf.d          # Additional PHP configuration filesdditional PHP configuration files
+│       │   │   │   ├── /mysql              # MySQL initialization scriptsySQL initialization scripts
+│       │   │   │   │   └── init.sql        # Example SQL initialization scriptxample SQL initialization script
+│       │   │   │   └── .dockerignore       # Docker ignore fileocker ignore file
+│       │   │   │
+│       │   │   ├── /dev                    # Development environment configurations for Laravelevelopment environment configurations for Laravel
+│       │   │   │   ├── /ci-cd              # CI/CD configurationsI/CD configurations
+│       │   │   │   │   ├── /github-actions # GitHub Actions workflowsitHub Actions work
+│       │   │   │   │   │   └── main.yml   # Main GitHub Actions workflow filein GitHub
+│       │   │   │   │   ├── /gitlab-ci      # GitLab CI/CD configurationsitLab CI/CD con
+│       │   │   │   │   │   └── .gitlab-ci.yml # GitLab CI/CD configuration file# GitLab
+│       │   │   │   │   └── /jenkins        # Jenkins pipeline configurationsenkins pipe
+│       │   │   │   │       └── Jenkinsfile # Jenkins pipeline fileenkins pipeline file
+│       │   │   │   ├── /nginx              # Nginx configurations specific to dev environmentginx configurations specific to dev environment
+│       │   │   │   │   └── dev.conf        # Nginx configuration file for developmentginx configuration file for development
+│       │   │   │   ├── /php                # PHP configurations specific to dev environmentHP configurations specific to dev environment
+│       │   │   │   │   └── dev.ini         # PHP configuration file for developmentHP configuration file for development
+│       │   │   │   ├── Dockerfile          # Dockerfile for development environmentockerfile for development environment
+│       │   │   │   ├── docker-compose.dev.yml  # Docker Compose file for development environmentocker Compose file for development environment
+│       │   │   │   └── .env.dev            # Development environment variablesevelopment environment variables
+│       │   │   │   └── .env.example.dev    # Example environment variables for development
+│       │   │   │
+│       │   │   ├── /staging                # Staging environment configurations for Laraveltaging environment configurations for Laravel
+│       │   │   │   ├── /ci-cd              # CI/CD configurationsI/CD configurations
+│       │   │   │   │   ├── /github-actions # GitHub Actions workflowsitHub Actions work
+│       │   │   │   │   │   └── main.yml   # Main GitHub Actions workflow filein GitHub
+│       │   │   │   │   ├── /gitlab-ci      # GitLab CI/CD configurationsitLab CI/CD con
+│       │   │   │   │   │   └── .gitlab-ci.yml # GitLab CI/CD configuration file# GitLab
+│       │   │   │   │   └── /jenkins        # Jenkins pipeline configurationsenkins pipe
+│       │   │   │   │       └── Jenkinsfile # Jenkins pipeline fileenkins pipeline file
+│       │   │   │   ├── /nginx              # Nginx configurations specific to staging environmentginx configurations specific to staging environment
+│       │   │   │   │   └── staging.conf    # Nginx configuration file for stagingginx configuration file for staging
+│       │   │   │   ├── /php                # PHP configurations specific to staging environmentHP configurations specific to staging environment
+│       │   │   │   │   └── staging.ini     # PHP configuration file for stagingHP configuration file for staging
+│       │   │   │   ├── Dockerfile          # Dockerfile for staging environmentockerfile for staging environment
+│       │   │   │   ├── docker-compose.staging.yml  # Docker Compose file for staging environmentocker Compose file for staging environment
+│       │   │   │   └── .env.staging        # Staging environment variablestaging environment variables
+│       │   │   │   └── .env.example.staging # Example environment variables for staging
+│       │   │   │
+│       │   │   ├── /prod                   # Production environment configurations for Laravelroduction environment configurations for Laravel
+│       │   │   │   ├── /ci-cd              # CI/CD configurationsI/CD configurations
+│       │   │   │   │   ├── /github-actions # GitHub Actions workflowsitHub Actions workflows
+│       │   │   │   │   │   └── main.yml   # Main GitHub Actions workflow filein GitHub Actions workflow file
+│       │   │   │   │   ├── /gitlab-ci      # GitLab CI/CD configurationsitLab CI/CD configurations
+│       │   │   │   │   │   └── .gitlab-ci.yml # GitLab CI/CD configuration file# GitLab CI/CD configuration file
+│       │   │   │   │   └── /jenkins        # Jenkins pipeline configurationsenkins pipeline configurations
+│       │   │   │   │       └── Jenkinsfile # Jenkins pipeline fileenkins pipeline file
+│       │   │   │   ├── /nginx              # Nginx configurations specific to production environmentginx configurations specific to production environment
+│       │   │   │   │   └── prod.conf       # Nginx configuration file for productionginx configuration file for production
+│       │   │   │   ├── /php                # PHP configurations specific to production environmentHP configurations specific to production environment
+│       │   │   │   │   └── prod.ini        # PHP configuration file for productionHP configuration file for production
+│       │   │   │   ├── Dockerfile          # Dockerfile for production environmentockerfile for production environment
+│       │   │   │   ├── docker-compose.prod.yml  # Docker Compose file for production environment
+│       │   │   │   └── .env.prod           # Production environment variables
+│       │   │   │   └── .env.example.prod   # Example environment variables for production
+│       │   │   ├── Dockerfile
+│       │   │   ├── docker-compose.yml
+│       │   │   └── .env
+│       │   │
+│       │   ├── /wordpress     # Templates specific to WordPress
+│       │   │   ├── /global    # Global configurations for WordPress
+│       │   │   │   ├── nginx  # Nginx configuration
+│       │   │   │   ├── php    # PHP configuration
+│       │   │   │   └── .dockerignore # Docker ignore file
+│       │   │   ├── /dev       # Development environment configurations for WordPress
+│       │   │   │   ├── Dockerfile
+│       │   │   │   ├── docker-compose.yml
+│       │   │   │   └── .env
+│       │   │   ├── /staging   # Staging environment configurations for WordPress
+│       │   │   │   ├── Dockerfile
+│       │   │   │   ├── docker-compose.yml
+│       │   │   │   └── .env
+│       │   │   └── /prod      # Production environment configurations for WordPress
+│       │   │       ├── Dockerfile
+│       │   │       ├── docker-compose.yml
+│       │   │       └── .env
+│       │   │
+│       │   └── /vue           # Templates specific to Vue.js
+│       │       ├── /global    # Global configurations for Vue.js
+│       │       │   ├── nginx  # Nginx configuration
+│       │       │   ├── node   # Node.js configuration
+│       │       │   └── .dockerignore # Docker ignore file
+│       │       ├── /dev       # Development environment configurations for Vue.js
+│       │       │   ├── Dockerfile
+│       │       │   ├── docker-compose.yml
+│       │       │   └── .env
+│       │       ├── /staging   # Staging environment configurations for Vue.js
+│       │       │   ├── Dockerfile
+│       │       │   ├── docker-compose.yml
+│       │       │   └── .env
+│       │       └── /prod      # Production environment configurations for Vue.js
+│       │           ├── Dockerfile
+│       │           ├── docker-compose.yml
+│       │           └── .env
+│       │
+│       ├── /deploy            # Deployment scripts and utilities                     ???
+│       │   ├── /scripts       # Custom deployment scripts                            ???
+│       │   ├── /hooks         # Deployment hooks (pre-deploy, post-deploy, etc.)     ???
+│       │   └── /config        # Configuration files for deployment                   ???
+│       │
+│       ├── /docs              # Documentation for the `/code` folder and its contents
+│       │    ├── setup.md       # Setup and installation guide for the framework
+│       │    ├── deployment.md  # Deployment guide and best practices
+│       │    └── troubleshooting.md # Troubleshooting and common issues                ???
+│       │
+│       └── /tests
+│           ├── /integration                                                           ???
+│           └── /unit                                                                  ???
+│
+├── .gitignore
+├── README.md
+└── LICENSE
