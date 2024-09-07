@@ -1,6 +1,11 @@
-# **KIK**
+# 🔥 **KIK** - Your Quick Development and Deployment Tool
+
+![Alpha](https://img.shields.io/badge/status-alpha-red?style=flat-square)
+![In Progress](https://img.shields.io/badge/status-in%20progress-yellow?style=flat-square)
 
 **KIK** is a powerful and intuitive tool designed to streamline and automate the deployment and setup of applications across multiple environments. Whether you're managing development, staging, or production setups, **KIK** simplifies the process with a user-friendly approach and robust functionality.
+
+> **Status:** This project is currently in the **Alpha** stage and is actively being developed. Expect frequent changes and possible breaking updates.
 
 ## **Features**
 
