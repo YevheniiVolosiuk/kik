@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+# ========================================
+# Main Directory and File Paths
+# ========================================
+# Directory where the script is located also checks if readlink -f is available
+if command -v readlink &> /dev/null; then
+    BIN_SCRIPT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+else
+    BIN_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+fi
+
+# Determine KIK_ROOT_DIR
+KIK_ROOT_DIR=$(dirname "$BIN_SCRIPT_DIR")
+KIK_ROOT_DIR_NAME="infrastructure"
+if [ ! -d "$KIK_ROOT_DIR" ] ; then
+    gum log --time rfc822 --level error "Could not determine KIK_HOME."
+    exit 1
+fi
+
+if [ "$KIK_ROOT_DIR" == "$KIK_ROOT_DIR_NAME" ]; then
+    gum log --time rfc822 --level error "Root folder does not exist or is not named '$KIK_ROOT_DIR_NAME'."
+    exit 1
+fi
+
+main () {
+  source "${KIK_ROOT_DIR}/libs/kik-framework/core/utility/log.sh"
+  source "${KIK_ROOT_DIR}/libs/kik-framework/core/utility/variables.sh"
+
+
+  log_debug "KIK TOOL WAS LOADED SUCCESSFULLY"
+}
+
+main "$@"

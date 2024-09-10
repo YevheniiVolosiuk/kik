@@ -1,0 +1,18 @@
+[submodule "infrastructure/tests/bats"]
+	path = infrastructure/tests/bats
+	url = https://github.com/bats-core/bats-core.git
+[submodule "infrastructure/tests/test_helper/bats-support"]
+	path = infrastructure/tests/test_helper/bats-support
+	url = https://github.com/bats-core/bats-support.git
+[submodule "infrastructure/tests/test_helper/bats-assert"]
+	path = infrastructure/tests/test_helper/bats-assert
+	url = https://github.com/bats-core/bats-assert.git
+[submodule "infrastructure/libs/kik-framework/tests/bats"]
+	path = infrastructure/libs/kik-framework/tests/bats
+	url = https://github.com/bats-core/bats-core.git
+[submodule "infrastructure/libs/kik-framework/tests/test_helper/bats-support"]
+	path = infrastructure/libs/kik-framework/tests/test_helper/bats-support
+	url = https://github.com/bats-core/bats-support.git
+[submodule "infrastructure/libs/kik-framework/tests/test_helper/bats-assert"]
+	path = infrastructure/libs/kik-framework/tests/test_helper/bats-assert
+	url = https://github.com/bats-core/bats-assert.git
