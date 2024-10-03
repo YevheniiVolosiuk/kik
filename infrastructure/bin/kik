@@ -96,7 +96,7 @@ EOF
 
 
 # _VERSION information
-print__VERSION() {
+print_version() {
     printf "$(gum_style "$_COLOR_PRIMARY" "Kik Version:") \n %s \n" "$(gum_style "$_COLOR_SECONDARY" "$_VERSION")"
 }
 
@@ -127,8 +127,8 @@ main() {
         -h|--help)
             print_help_info
             ;;
-        -v|--_VERSION)
-            print__VERSION
+        -v|--version)
+            print_version
             ;;
         -p|--palette)
             print_color_palette
