@@ -47,36 +47,41 @@ error_exit() {
 }
 
 
-# Usage information
+# Help information
 print_help_info() {
-    cat << EOF
-Usage: kik <command> [options]
+    local help_text_output
+    help_text_output="$(cat << EOF
 
-Commands:
-  init        Initialize a new project
-  env         Manage environments
-  deploy      Deploy the project
-  rollback    Rollback to a previous version
-  db          Database management
-  cache       Cache management
-  monitor     Monitoring and logging
-  update      Update KIK tool
+$(gum_style "$_COLOR_PRIMARY" "Usage:") $(gum_style "$_COLOR_SECONDARY" " kik [COMMAND] [OPTIONS]")
 
-Global Options:
-  -h, --help     Show this help message
-  -v, --version  Show version information
-  -p, --palette  Show using color palette
-  -d, --debag    Debag KIK tool
+$(gum_style "$_COLOR_PRIMARY" "Commands:")
+$(gum_style "$_COLOR_SECONDARY" "  init ------>") $(gum_style "$_COLOR_TEXT_NORMAL" "Initialize a new project")
+$(gum_style "$_COLOR_SECONDARY" "  env ------->") $(gum_style "$_COLOR_TEXT_NORMAL" "Manage environments")
+$(gum_style "$_COLOR_SECONDARY" "  deploy ---->") $(gum_style "$_COLOR_TEXT_NORMAL" "Deploy the project")
+$(gum_style "$_COLOR_SECONDARY" "  rollback -->") $(gum_style "$_COLOR_TEXT_NORMAL" "Rollback to a previous version")
+$(gum_style "$_COLOR_SECONDARY" "  db -------->") $(gum_style "$_COLOR_TEXT_NORMAL" "Database management")
+$(gum_style "$_COLOR_SECONDARY" "  cache ----->") $(gum_style "$_COLOR_TEXT_NORMAL" "Cache management")
+$(gum_style "$_COLOR_SECONDARY" "  monitor --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Monitoring and logging")
+$(gum_style "$_COLOR_SECONDARY" "  update ---->") $(gum_style "$_COLOR_TEXT_NORMAL" "Update KIK tool")
 
-Run 'kik <command> --help' for more information on a specific command.
+
+$(gum_style "$_COLOR_PRIMARY" "Global Options:")
+$(gum_style "$_COLOR_SECONDARY" "  -h, --help ------>") $(gum_style "$_COLOR_TEXT_NORMAL" "Show this help message")
+$(gum_style "$_COLOR_SECONDARY" "  -v, --version --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Show version information")
+$(gum_style "$_COLOR_SECONDARY" "  -p, --palette --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Show color palette")
+$(gum_style "$_COLOR_SECONDARY" "  -d, --debag ----->") $(gum_style "$_COLOR_TEXT_NORMAL" "Debag KIK tool")
+
+$(gum_style "$_COLOR_WARNING" "Run ") $(gum_style "$_COLOR_SECONDARY" "'kik <COMMAND> --help'") $(gum_style "$_COLOR_WARNING" " for more information on a specific command.")
 EOF
+    )"
+
+    echo "$help_text_output"
 }
 
 
-
-# Version information
-print_version() {
-    printf "KIK Version \n %s \n" "$VERSION"
+# _VERSION information
+print__VERSION() {
+    printf "$(gum_style "$_COLOR_PRIMARY" "Kik Version:") \n %s \n" "$(gum_style "$_COLOR_SECONDARY" "$_VERSION")"
 }
 
 cmd_debag() {
