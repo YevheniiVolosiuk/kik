@@ -1,37 +1,52 @@
 #!/usr/bin/env bash
 
 # kik - Deployment and Environment Management Tool
-# Version: 1.0.0
+# _VERSION: 1.0.0
 # Copyright (c) 2024 Your Company Name
 # Licensed under MIT License
+
+
+# Here's how I name variables in my Bash scripts
+# |---------------|------------|----------------|
+# | Type          | Scope      | Convention     |
+# |---------------|------------|----------------|
+# | Environment   | Global     | MY_VARIABLE    |
+# | Global        | Global     | _MY_VARIABLE   |
+# | Local         | Function   | my_variable    |
+
 
 # Error handling
 set -euo pipefail
 IFS=$'\n\t'
 
-# Constants
-VERSION="v0.1.0"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-KIK_ROOT="$(dirname "$SCRIPT_DIR")"
 
-readonly VERSION
-readonly SCRIPT_DIR
-readonly KIK_ROOT
+# Constants
+_VERSION="v0.1.0"
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_KIK_ROOT="$(dirname "$_SCRIPT_DIR")"
+
+
+readonly _VERSION
+readonly _SCRIPT_DIR
+readonly _KIK_ROOT
+
 
 # Color definitions
-readonly RED='\033[0;31m'
-readonly GREEN='\033[0;32m'
-readonly YELLOW='\033[0;33m'
-readonly BLUE='\033[0;34m'
-readonly RESET_COLOR='\033[0m' # No Color
+readonly _RED='\033[0;31m'
+readonly _GREEN='\033[0;32m'
+readonly _YELLOW='\033[0;33m'
+readonly _BLUE='\033[0;34m'
+readonly _RESET_COLOR='\033[0m' # No Color
+
 
 # Source utility functions
 # shellcheck source=/dev/null
-source "$KIK_ROOT/lib/utils/gum.sh"
+source "$_KIK_ROOT/lib/utils/gum.sh"
 # shellcheck source=/dev/null
-source "$KIK_ROOT/lib/utils/colors.sh"
+source "$_KIK_ROOT/lib/utils/colors.sh"
 # shellcheck source=/dev/null
-#source "$KIK_ROOT/lib/utils/exemple.sh"
+#source "$_KIK_ROOT/lib/utils/exemple.sh"
+
 
 # Logging function
 log() {
@@ -39,6 +54,7 @@ log() {
     shift
     printf "%s [%s] %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$level" "$*" >&2
 }
+
 
 # Error handling function
 error_exit() {
@@ -84,15 +100,17 @@ print__VERSION() {
     printf "$(gum_style "$_COLOR_PRIMARY" "Kik Version:") \n %s \n" "$(gum_style "$_COLOR_SECONDARY" "$_VERSION")"
 }
 
+
 cmd_debag() {
-    source "$KIK_ROOT/lib/commands/debag.sh"
+    source "${_KIK_ROOT}/lib/commands/debag.sh"
     debag_action "$@"
 }
+
 
 # Main function
 main() {
     if [[ $# -eq 0 ]]; then
-        usage
+        print_help_info
         exit 1
     fi
 
@@ -109,17 +127,18 @@ main() {
         -h|--help)
             print_help_info
             ;;
-        -v|--version)
-            print_version
+        -v|--_VERSION)
+            print__VERSION
             ;;
         -p|--palette)
             print_color_palette
             ;;
         *)
-            error_exit "Unknown command: $command"
+            error_exit "Unknown command: $command_name"
             ;;
     esac
 }
+
 
 # Trap for cleanup
 cleanup() {
@@ -142,7 +161,9 @@ cleanup() {
     exit "$exit_status"
 }
 
+
 trap cleanup EXIT SIGINT SIGTERM ERR
+
 
 # Execute main function
 main "$@"

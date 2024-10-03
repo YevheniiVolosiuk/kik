@@ -5,5 +5,5 @@ command_exists() {
 }
 
 print_kik_version() {
-  echo -e "${PURPLE}$APP_NAME CLI version $TOOL_VERSION${RESET}"
+  echo -e "${_PURPLE}$_APP_NAME CLI version $_TOOL_VERSION${_RESET}"
 }
