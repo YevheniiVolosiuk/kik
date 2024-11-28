@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
-# kik - Deployment and Environment Management Tool
-# _VERSION: 1.0.0
-# Copyright (c) 2024 Your Company Name
-# Licensed under MIT License
+#  Tool Name:         KIK
+#  Tool URI:          https://github.com/YevheniiVolosiuk/kik
+#  Description:       🚀 KIK 🚀 is a powerful and intuitive tool designed to streamline and automate the deployment and setup of applications across multiple environments ["dev", "prod", "steg"].
+#  Version:           v0.1.0-alpha
+#  Requires:          Bash
+#  Author:            Yevhenii Volosiuk
+#  Author URI:        https://author.example.com/
+#  License:           GPL v2 or later
+#  Requires Libs:     gum UI kit - https://github.com/charmbracelet/gum
+# Copyright (c) 2024  StabbornWeb
 
 
-# Here's how I name variables in my Bash scripts
+# Here's convention for naming variables in kik project
 # |---------------|------------|----------------|
 # | Type          | Scope      | Convention     |
 # |---------------|------------|----------------|
@@ -21,7 +27,7 @@ IFS=$'\n\t'
 
 
 # Constants
-_VERSION="v0.1.0"
+_VERSION="v0.1.0-alpha"
 _SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 _KIK_ROOT="$(dirname "$_SCRIPT_DIR")"
 
@@ -143,7 +149,7 @@ main() {
 # Trap for cleanup
 cleanup() {
     local exit_status=$?
-    
+
     # Remove temporary files if they exist
     # Remove lock file explicitly if script exits normally
     # Kill background processes, if any
@@ -167,4 +173,3 @@ trap cleanup EXIT SIGINT SIGTERM ERR
 
 # Execute main function
 main "$@"
-
