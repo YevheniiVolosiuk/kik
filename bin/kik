@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+
+#  Tool Name:         KIK
+#  Tool URI:          https://github.com/YevheniiVolosiuk/kik
+#  Description:       🚀 KIK 🚀 is a powerful and intuitive tool designed to streamline and automate the deployment and setup of applications across multiple environments ["dev", "prod", "steg"].
+#  Version:           v0.1.0-alpha
+#  Requires:          Bash
+#  Author:            Yevhenii Volosiuk
+#  Author URI:        https://author.example.com/
+#  License:           GPL v2 or later
+#  Requires Libs:     gum UI kit - https://github.com/charmbracelet/gum
+# Copyright (c) 2024  StabbornWeb
+
+
+# Here's convention for naming variables in kik project
+# |---------------|------------|----------------|
+# | Type          | Scope      | Convention     |
+# |---------------|------------|----------------|
+# | Environment   | Global     | MY_VARIABLE    |
+# | Global        | Global     | _MY_VARIABLE   |
+# | Local         | Function   | my_variable    |
+
+
+# Error handling
+set -euo pipefail
+IFS=$'\n\t'
+
+
+# Constants
+_VERSION="v0.1.0-alpha"
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_KIK_ROOT="$(dirname "$_SCRIPT_DIR")"
+
+
+readonly _VERSION
+readonly _SCRIPT_DIR
+readonly _KIK_ROOT
+
+
+# Color definitions
+readonly _RED='\033[0;31m'
+readonly _GREEN='\033[0;32m'
+readonly _YELLOW='\033[0;33m'
+readonly _BLUE='\033[0;34m'
+readonly _RESET_COLOR='\033[0m' # No Color
+
+
+# Source utility functions
+# shellcheck source=/dev/null
+source "$_KIK_ROOT/lib/utils/gum.sh"
+# shellcheck source=/dev/null
+source "$_KIK_ROOT/lib/utils/colors.sh"
+# shellcheck source=/dev/null
+source "$_KIK_ROOT/lib/utils/log.sh"
+
+
+
+# Help information
+print_help_info() {
+    local help_text_output
+    help_text_output="$(cat << EOF
+
+$(gum_style "$_COLOR_PRIMARY" "Usage:") $(gum_style "$_COLOR_SECONDARY" " kik [COMMAND] [OPTIONS]")
+
+$(gum_style "$_COLOR_PRIMARY" "Commands:")
+$(gum_style "$_COLOR_SECONDARY" "  init ------>") $(gum_style "$_COLOR_TEXT_NORMAL" "Initialize a new project")
+$(gum_style "$_COLOR_SECONDARY" "  env ------->") $(gum_style "$_COLOR_TEXT_NORMAL" "Manage environments")
+$(gum_style "$_COLOR_SECONDARY" "  deploy ---->") $(gum_style "$_COLOR_TEXT_NORMAL" "Deploy the project")
+$(gum_style "$_COLOR_SECONDARY" "  rollback -->") $(gum_style "$_COLOR_TEXT_NORMAL" "Rollback to a previous version")
+$(gum_style "$_COLOR_SECONDARY" "  db -------->") $(gum_style "$_COLOR_TEXT_NORMAL" "Database management")
+$(gum_style "$_COLOR_SECONDARY" "  cache ----->") $(gum_style "$_COLOR_TEXT_NORMAL" "Cache management")
+$(gum_style "$_COLOR_SECONDARY" "  monitor --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Monitoring and logging")
+$(gum_style "$_COLOR_SECONDARY" "  update ---->") $(gum_style "$_COLOR_TEXT_NORMAL" "Update KIK tool")
+
+
+$(gum_style "$_COLOR_PRIMARY" "Global Options:")
+$(gum_style "$_COLOR_SECONDARY" "  -h, --help ------>") $(gum_style "$_COLOR_TEXT_NORMAL" "Show this help message")
+$(gum_style "$_COLOR_SECONDARY" "  -v, --version --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Show version information")
+$(gum_style "$_COLOR_SECONDARY" "  -p, --palette --->") $(gum_style "$_COLOR_TEXT_NORMAL" "Show color palette")
+$(gum_style "$_COLOR_SECONDARY" "  -d, --debag ----->") $(gum_style "$_COLOR_TEXT_NORMAL" "Debag KIK tool")
+
+$(gum_style "$_COLOR_WARNING" "Run ") $(gum_style "$_COLOR_SECONDARY" "'kik <COMMAND> --help'") $(gum_style "$_COLOR_WARNING" " for more information on a specific command.")
+EOF
+    )"
+
+    echo "$help_text_output"
+}
+
+
+# Version information
+print_version() {
+    printf "$(gum_style "$_COLOR_PRIMARY" "Kik Version:") \n %s \n" "$(gum_style "" "$_VERSION")"
+}
+
+
+cmd_debag() {
+    source "${_KIK_ROOT}/lib/commands/debug.sh"
+    debag_action "$@"
+}
+
+
+# Main function
+main() {
+    if [[ $# -eq 0 ]]; then
+        print_help_info
+        exit 1
+    fi
+
+    local command_name="$1"
+    shift
+
+    case "$command_name" in
+        init|env|deploy|rollback|db|cache|monitor|update)
+            "cmd_$command_name" "$@"
+            ;;
+        -d|--debag)
+            cmd_debag "$@"
+            ;;
+        -h|--help)
+            print_help_info
+            ;;
+        -v|--version)
+            print_version
+            ;;
+        -p|--palette)
+            print_color_palette
+            ;;
+        *)
+            log_error "Unknown command: $command_name" "ERROR"
+            ;;
+    esac
+}
+
+
+# Trap for cleanup
+#cleanup() {
+#    local exit_status=$?
+
+    # Remove temporary files if they exist
+    # Remove lock file explicitly if script exits normally
+    # Kill background processes, if any
+    # Add any cleanup tasks here
+    #log "INFO" "Cleaning up..."
+
+
+    # Log exit status
+    #if [[ $exit_status -eq 0 ]]; then
+    #    log "INFO" "Script exited successfully."
+    #else
+    #    log "ERROR" "Script exited with status $exit_status."
+    #fi
+
+#    exit "$exit_status"
+#}
+
+
+#trap cleanup EXIT SIGINT SIGTERM ERR
+
+# Execute main function
+main "$@"
