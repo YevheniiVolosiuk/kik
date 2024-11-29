@@ -33,7 +33,7 @@ INSTALL_LOG_FILE="$HOME/tmp/kik_install.log"
 OS=$(uname -s)
 
 # Installer version
-INSTALLER_VERSION="0.0.1"
+#INSTALLER_VERSION="0.1.0-alpha"
 
 # Function to log messages to the console and the log file
 log() {
@@ -177,7 +177,7 @@ installation_summary() {
 
 # Main installation function
 main() {
-  log "\nStarting kik CLI installation (v$INSTALLER_VERSION)..."
+  log "\nStarting kik CLI installation..."
 
   check_root
   check_dependencies
