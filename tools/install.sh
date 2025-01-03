@@ -261,12 +261,12 @@ main() {
   # check_root  # Uncomment if you need root privileges
 
   check_dependencies
-  prepare_directories
 
   # --- Clone the repository ---
   git clone -b "$branch" "$remote" "$kik_home_path"  || error "Failed to clone repository."
   get_kik_version
 
+  prepare_directories
   create_default_config
   install_optional_components
   make_cli_global
