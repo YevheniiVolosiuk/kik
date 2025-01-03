@@ -9,13 +9,7 @@
 
 set -euo pipefail
 
-# Default settings
-if [[ -n "$INSTALL_DIR" ]]; then
-  kik_home_path="$INSTALL_DIR"
-else
-  kik_home_path="${kik_home_path:-$HOME/.kik}"
-fi
-
+kik_home_path="${kik_home_path:-$HOME/.kik}"
 repo=${repo:-YevheniiVolosiuk/kik}
 remote=${remote:-https://github.com/${repo}.git}
 branch=${branch:-main}
