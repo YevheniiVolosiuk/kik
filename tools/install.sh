@@ -7,8 +7,10 @@
 # Date: 2025
 # ------------------------------------------------------------------------------
 
+# Exit immediately if a command exits with a non-zero status
 set -euo pipefail
 
+# Default values for installation
 kik_home_path="${kik_home_path:-$HOME/.kik}"
 repo=${repo:-YevheniiVolosiuk/kik}
 remote=${remote:-https://github.com/${repo}.git}
@@ -21,9 +23,13 @@ RED='\033[0;31m'    # Error
 YELLOW='\033[0;33m' # Warning
 PURPLE='\033[35m'   # Highlight
 
+
+# Check if a command exists
 command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
+
+
 
 # Log file for installation process
 install_log_file="$(mktemp)"
@@ -34,26 +40,39 @@ OS=$(uname -s) # Detect operating system
 installer_version="0.0.1"
 kik_version=""
 
+
+
 # Function to log messages to the console and log file
 log() {
   echo -e "$@" >> "$install_log_file"
   echo -e "$@"
 }
 
+
+
+# Function to display success messages
 success() {
   log "${GREEN}[✔] $1${NC}"
 }
 
+
+
+# Function to display errors and exit
 error() {
   log "${RED}[✖] $1${NC}"
   log "${YELLOW}Installation log: ${install_log_file}${NC}"
   exit 1
 }
 
+
+
+# Function to display warnings
 warn() {
   log "${YELLOW}[!] $1${NC}"
 }
 
+
+# Function to display the Kik banner
 show_kik_banner() {
   printf '\n'
   printf '%s  ████╗  ████╗  ╔═█████═╗  ████╗  ████╗  %s\n' "$PURPLE" "$NC"
@@ -124,6 +143,9 @@ install_dependency() {
   fi
 }
 
+
+
+# Check if gum is installed
 check_gum_dependency(){
     local gum_install_docs_url="https://github.com/charmbracelet/gum?tab=readme-ov-file#installation"
 
@@ -136,6 +158,8 @@ check_gum_dependency(){
       exit 0;
     fi
 }
+
+
 
 # Check for essential dependencies
 check_dependencies() {
@@ -151,6 +175,9 @@ check_dependencies() {
   success "All dependencies are installed."
 }
 
+
+
+#
 delete_existing_installation() {
   if [[ -d "$kik_home_path" ]]; then
     warn "Existing installation detected at $kik_home_path."
@@ -162,6 +189,7 @@ delete_existing_installation() {
     fi
   fi
 }
+
 
 
 # Backup existing installation
@@ -177,6 +205,8 @@ backup_existing_installation() {
   fi
 }
 
+
+
 # Create necessary directories
 prepare_directories() {
   log "Preparing directories..."
@@ -186,6 +216,8 @@ prepare_directories() {
 
   success "Created necessary directories at $kik_home_path"
 }
+
+
 
 # Create default .env and config files with optional customization
 create_default_config() {
@@ -204,6 +236,8 @@ EOF
   fi
 }
 
+
+
 # Function to prompt for optional service installation (e.g., Docker, Postgres)
 install_optional_components() {
   local component
@@ -221,6 +255,9 @@ install_optional_components() {
   done
 }
 
+
+
+# Add the kik binary path to the user's shell configuration file
 add_kik_path_to_user_shell() {
   # --- Determine the user's shell ---
   user_shell=$(basename "$SHELL")
@@ -271,6 +308,9 @@ add_kik_path_to_user_shell() {
   fi
 }
 
+
+
+
 # Make the CLI globally available by linking to /usr/local/bin
 make_cli_global() {
   # --- Set the installation path to the user's .kik directory ---
@@ -287,6 +327,9 @@ make_cli_global() {
   fi
 }
 
+
+
+# Get the latest release version from the repository
 get_install_version() {
   # --- Priority 1: User-specified version (using TAG) ---
   if [[ ! -z "$TAG" ]]; then
@@ -316,6 +359,8 @@ get_kik_version() {
   kik_version=$(git -C "$kik_home_path" describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
 }
 
+
+
 # Display installation summary and logs
 installation_summary() {
   show_kik_banner
@@ -325,6 +370,8 @@ installation_summary() {
   log "Installation Log:   $install_log_file"
   success "kik CLI installed successfully. Run 'kik --help' to get started."
 }
+
+
 
 # Main installation function
 main() {
@@ -354,6 +401,7 @@ main() {
   installation_summary
 }
 
+# Cleanup function to remove temporary files
 cleanup() {
   # --- Remove the temporary log file ---
   rm "$install_log_file"
